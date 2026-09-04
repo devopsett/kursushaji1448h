@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Portal & Checklist Kursus Asas Haji 1448H/2027M - Terengganu</title>
+  <title>Checklist Kursus Asas Haji Terengganu 1448H/2027M</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -36,7 +36,6 @@
           },
           boxShadow: {
             'soft': '0 2px 8px -1px rgba(11, 59, 44, 0.06), 0 1px 4px -1px rgba(0, 0, 0, 0.04)',
-            'card': '0 4px 14px -2px rgba(11, 59, 44, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)',
           }
         }
       }
@@ -44,26 +43,16 @@
   </script>
 
   <style>
-    .custom-scroll::-webkit-scrollbar {
-      height: 4px;
-    }
-    .custom-scroll::-webkit-scrollbar-track {
-      background: #f1f5f9;
-      border-radius: 8px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 8px;
-    }
+    .custom-scroll::-webkit-scrollbar { height: 4px; }
+    .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
     @media print {
       .no-print { display: none !important; }
       body { background: white !important; color: black !important; }
       .print-card { break-inside: avoid; border: 1px solid #cbd5e1 !important; box-shadow: none !important; margin-bottom: 12px !important; }
       .print-show { display: block !important; }
     }
-    .fade-anim {
-      animation: animEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+    .fade-anim { animation: animEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
     @keyframes animEnter {
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
@@ -72,26 +61,23 @@
 </head>
 <body class="bg-[#F6F8F7] text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-brand-accent selection:text-white">
 
-  <!-- Bar Status Pangkalan Data Google Sheets -->
+  <!-- Status Penyambungan Google Sheets -->
   <aside aria-label="Status Cloud" class="bg-brand-surface border-b border-emerald-950/80 text-xs py-2 px-3 sm:px-4 no-print sticky top-0 z-40">
     <div class="max-w-5xl mx-auto flex items-center justify-between gap-2">
       <div class="flex items-center gap-2 min-w-0">
         <span id="cloudStatusDot" class="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
         <span id="cloudStatusText" class="text-slate-200 text-[11px] sm:text-xs truncate font-medium">
-          Mod Tempatan (Luar Talian)
+          Menyambung ke Google Sheets...
         </span>
       </div>
-      <div class="flex items-center gap-3 shrink-0">
-        <button onclick="bukaModalGAS()" class="text-amber-300 hover:text-white font-semibold text-[11px] sm:text-xs flex items-center gap-1.5 transition">
-          <i class="fa-solid fa-cloud-arrow-up text-xs"></i>
-          <span id="btnLabelGAS" class="hidden xs:inline">Paut Google Sheets</span>
-          <span class="xs:hidden">Sheets</span>
-        </button>
-      </div>
+      <button onclick="muatDataCloud()" class="text-amber-300 hover:text-white font-semibold text-[11px] sm:text-xs flex items-center gap-1.5 transition">
+        <i class="fa-solid fa-arrows-rotate" id="syncIcon"></i>
+        <span>Segerak Data</span>
+      </button>
     </div>
   </aside>
 
-  <!-- Pengepala Utama (Header) -->
+  <!-- Pengepala Utama -->
   <header class="bg-gradient-to-b from-brand-primary to-brand-primaryHover text-white shadow-md relative overflow-hidden no-print">
     <div class="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none"></div>
 
@@ -107,14 +93,13 @@
             <span class="text-amber-300 font-serif">🕋</span>
           </h1>
           <p class="text-xs sm:text-sm text-emerald-100 font-semibold mt-1">
-            Jemaah Haji Malaysia 1448H / 2027M &bull; Navigasi Pemanduan Tepat ke 13 Masjid
+            Jemaah Haji Malaysia 1448H / 2027M &bull; Pelan Jelajah 13 Minggu (1 Hari 1 Tempat)
           </p>
           <p class="text-xs text-amber-200 italic font-quran mt-0.5">
             "Bersedia, Berilmu, Berkeyakinan Menuju Baitullah"
           </p>
         </div>
 
-        <!-- Butang Cetak & Reset -->
         <div class="flex items-center justify-center gap-2">
           <button onclick="window.print()" class="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition active:scale-95">
             <i class="fa-solid fa-print text-amber-300"></i>
@@ -156,7 +141,7 @@
     </div>
   </header>
 
-  <!-- Paparan Cetakan Sahaja -->
+  <!-- Paparan Cetak Sahaja -->
   <div class="hidden print-show p-6 border-b border-slate-300">
     <h1 class="text-xl font-bold text-slate-900">Checklist Kursus Asas Haji 1448H / 2027M - Terengganu</h1>
     <p class="text-sm text-slate-600 mt-1">Jadual Pelan Jelajah 13 Minggu (1 Hari 1 Masjid)</p>
@@ -214,47 +199,6 @@
 
   </main>
 
-  <!-- Modal Google Apps Script -->
-  <div id="modalGAS" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 no-print">
-    <div class="bg-white rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl fade-anim">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 class="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2">
-          <i class="fa-solid fa-cloud-arrow-up text-brand-primary"></i>
-          <span>Pautkan Google Sheets</span>
-        </h3>
-        <button onclick="tutupModalGAS()" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition">
-          <i class="fa-solid fa-xmark text-xs"></i>
-        </button>
-      </div>
-
-      <div class="text-xs text-slate-600 space-y-2.5 leading-relaxed">
-        <p>Masukkan <strong>Web App URL</strong> daripada skrip <code class="bg-slate-100 text-slate-900 font-bold px-1.5 py-0.5 rounded border border-slate-200">Code.gs</code>:</p>
-        <div>
-          <label class="block font-bold text-slate-800 mb-1">URL Aplikasi Web:</label>
-          <input 
-            type="url" 
-            id="gasUrlInput" 
-            placeholder="https://script.google.com/macros/s/.../exec" 
-            class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:ring-2 focus:ring-brand-primary outline-none"
-          >
-        </div>
-        <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-[11px] text-slate-500">
-          <i class="fa-solid fa-circle-info mr-1 text-brand-primary"></i>
-          Status tanda hadir dan tarikh akan disimpan terus ke Google Sheets secara automatik.
-        </div>
-      </div>
-
-      <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
-        <button onclick="padamPautanGAS()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-rose-700 rounded-lg text-xs font-bold transition">
-          Padam Pautan
-        </button>
-        <button onclick="simpanPautanGAS()" class="flex-1 py-2 bg-brand-primary hover:bg-brand-primaryHover text-white rounded-lg text-xs font-bold transition shadow-sm">
-          Simpan & Sambung
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- Modal Tukar Tarikh -->
   <div id="modalTarikh" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 no-print">
     <div class="bg-white rounded-2xl max-w-sm w-full p-5 space-y-3.5 shadow-2xl fade-anim">
@@ -300,15 +244,19 @@
         Checklist & Panduan Jelajah Kursus Asas Haji (KAH) Negeri Terengganu &bull; 1448H / 2027M
       </p>
       <div class="flex items-center justify-center gap-3 text-[11px] text-slate-400 pt-1">
-        <button onclick="bukaModalGAS()" class="hover:text-amber-300 transition">Pautan Google Sheets</button>
-        <span>&bull;</span>
         <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-amber-300 transition">Ke Atas</button>
       </div>
     </div>
   </footer>
 
-  <!-- Data 13 Masjid dengan Query Rasmi Google Places & Waze -->
+  <!-- SCRIPT UTAMA -->
   <script>
+    // =========================================================================
+    // 🔗 LETAKKAN URL WEB APP GOOGLE APPS SCRIPT ANDA DI SINI:
+    // =========================================================================
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQrV4TiocIvLlx4BFHJ4GnCsYvheH4ONROVS-3trXT1dDf4R5eq1HauMhTJyGkPu2dQw/exec";
+    // =========================================================================
+
     const TARIKH_SIRI_JUMAAT = [
       "25/09/2026", "02/10/2026", "09/10/2026", "16/10/2026", "23/10/2026",
       "30/10/2026", "06/11/2026", "13/11/2026", "20/11/2026", "27/11/2026",
@@ -321,7 +269,6 @@
       "05/12/2026", "12/12/2026", "19/12/2026"
     ];
 
-    // Senarai 13 Masjid dengan Kata Kunci Tapak Rasmi
     const DATA_ASAL = [
       { 
         minggu: 1, 
@@ -330,9 +277,8 @@
         carianPeta: "Masjid At-Taqwa Durian Burung, Kuala Terengganu",
         daerah: "Kuala Terengganu", 
         hari: "Jumaat", 
-        masa: "8.00 am – 12.00 pm", 
+        masa: "8.00 pagi – 12.00 tgh", 
         tarikhDipilih: "25/09/2026", 
-        alamat: "Jalan Durian Burung, 20050 Kuala Terengganu", 
         selesai: false, 
         catatan: "Siri 1: Falsafah Haji, Niat & Asas Ihram" 
       },
@@ -344,9 +290,8 @@
         carianPeta: "Masjid Tengku Tengah Zaharah, Kuala Ibai, Kuala Terengganu",
         daerah: "Kuala Terengganu", 
         hari: "Sabtu", 
-        masa: "8.30 am – 12.30 pm", 
+        masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "03/10/2026", 
-        alamat: "Kuala Ibai, 20400 Kuala Terengganu", 
         selesai: false, 
         catatan: "Siri 2: Syarat, Rukun & Wajib Haji" 
       },
@@ -357,9 +302,8 @@
         carianPeta: "Masjid Wakaf Tembesu, Kuala Terengganu",
         daerah: "Kuala Terengganu", 
         hari: "Jumaat", 
-        masa: "8.00 am – 12.00 pm", 
+        masa: "8.00 pagi – 12.00 tgh", 
         tarikhDipilih: "09/10/2026", 
-        alamat: "Jalan Tengku Mizan, Wakaf Tembesu, Kuala Nerus / Kuala Terengganu", 
         selesai: false, 
         catatan: "Siri 3: Larangan Semasa Ihram & Dam" 
       },
@@ -370,9 +314,8 @@
         carianPeta: "Masjid Padang Nenas, Kuala Nerus, Terengganu",
         daerah: "Kuala Nerus", 
         hari: "Sabtu", 
-        masa: "8.30 am – 12.30 pm", 
+        masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "17/10/2026", 
-        alamat: "Kampung Padang Nenas, 21300 Kuala Nerus", 
         selesai: false, 
         catatan: "Siri 4: Praktikal Ibadat Tawaf & Solat Sunat Tawaf" 
       },
@@ -383,9 +326,8 @@
         carianPeta: "Masjid Padang Mengkuang, Marang, Terengganu",
         daerah: "Marang", 
         hari: "Sabtu", 
-        masa: "8.30 am – 12.30 pm", 
+        masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "24/10/2026", 
-        alamat: "Kampung Padang Mengkuang, Bukit Payung, 21400 Marang", 
         selesai: false, 
         catatan: "Siri 5: Ibadah Sa'ie & Bercukur (Tahallul)" 
       },
@@ -396,9 +338,8 @@
         carianPeta: "Masjid Kg Butut, Kuala Berang, Terengganu",
         daerah: "Kuala Berang", 
         hari: "Sabtu", 
-        masa: "8.30 am – 12.30 pm", 
+        masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "31/10/2026", 
-        alamat: "Kampung Butut, 21700 Kuala Berang, Hulu Terengganu", 
         selesai: false, 
         catatan: "Siri 6: Penghayatan Wukuf di Padang Arafah" 
       },
@@ -410,9 +351,8 @@
         carianPeta: "Masjid Putera Jaya, Kampung Pak Kancil, Setiu, Terengganu",
         daerah: "Setiu", 
         hari: "Sabtu", 
-        masa: "8.30 am – 12.30 pm", 
+        masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "07/11/2026", 
-        alamat: "Bandar Permaisuri / Kg Pak Kancil, 22100 Setiu", 
         selesai: false, 
         catatan: "Siri 7: Mabit di Muzdalifah & Mina" 
       },
@@ -424,9 +364,8 @@
         carianPeta: "Masjid Ulul Albab Seberang Jerteh, Besut, Terengganu",
         daerah: "Besut", 
         hari: "Jumaat", 
-        masa: "8.00 am – 12.00 pm", 
+        masa: "8.00 pagi – 12.00 tgh", 
         tarikhDipilih: "13/11/2026", 
-        alamat: "Seberang Jerteh, 22000 Jerteh, Besut", 
         selesai: false, 
         catatan: "Siri 8: Tertib & Kaifiat Melontar Jamrah" 
       },
@@ -437,9 +376,8 @@
         carianPeta: "Masjid Nasiruddin Shah, Kampung Raja, Besut, Terengganu",
         daerah: "Besut", 
         hari: "Sabtu", 
-        masa: "8.30 am – 12.30 pm", 
+        masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "21/11/2026", 
-        alamat: "Kampung Raja, 22200 Besut", 
         selesai: false, 
         catatan: "Siri 9: Jenis Pelaksanaan Haji (Tamattu', Ifrad, Qiran)" 
       },
@@ -450,9 +388,8 @@
         carianPeta: "Masjid Balai Besar, Dungun, Terengganu",
         daerah: "Dungun", 
         hari: "Sabtu", 
-        masa: "8.30 am – 12.30 pm", 
+        masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "28/11/2026", 
-        alamat: "Kampung Balai Besar, 23000 Dungun", 
         selesai: false, 
         catatan: "Siri 10: Jenis-jenis Dam & Fidyah" 
       },
@@ -464,9 +401,8 @@
         carianPeta: "Masjid Tengku Mizan Zainal Abidin Kerteh, Kemaman, Terengganu",
         daerah: "Kerteh", 
         hari: "Sabtu", 
-        masa: "8.30 am – 12.30 pm", 
+        masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "05/12/2026", 
-        alamat: "Bandar Baru Kerteh, 24300 Kerteh, Kemaman", 
         selesai: false, 
         catatan: "Siri 11: Panduan Kesihatan & Kecergasan Jemaah" 
       },
@@ -477,9 +413,8 @@
         carianPeta: "Masjid Jamek Binjai, Kemaman, Terengganu",
         daerah: "Kemaman", 
         hari: "Jumaat", 
-        masa: "8.00 am – 12.00 pm", 
+        masa: "8.00 pagi – 12.00 tgh", 
         tarikhDipilih: "11/12/2026", 
-        alamat: "Kampung Binjai, 24000 Chukai, Kemaman", 
         selesai: false, 
         catatan: "Siri 12: Kelebihan & Adab Ziarah Madinah Munawwarah" 
       },
@@ -490,9 +425,8 @@
         carianPeta: "Masjid Mak Chili, Chukai, Kemaman, Terengganu",
         daerah: "Kemaman", 
         hari: "Sabtu", 
-        masa: "8.30 am – 12.30 pm", 
+        masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "19/12/2026", 
-        alamat: "Jalan Air Putih, Batu 2 1/2 Mak Chili, 24000 Chukai, Kemaman", 
         selesai: false, 
         catatan: "Siri 13: Tawaf Wada', Doa Akhir & Penutup" 
       }
@@ -503,21 +437,11 @@
     let senaraiMasjid = [...DATA_ASAL];
     let penapisStatus = 'semua';
     let penapisDaerah = 'Semua';
-    let gasUrl = "";
     let masjidDipilihTukarTarikh = null;
 
     window.addEventListener('DOMContentLoaded', () => {
       binaButangDaerah();
-
-      const urlDisimpan = window.localStorage ? localStorage.getItem('kah_terengganu_gas_url') : null;
-      if (urlDisimpan) {
-        gasUrl = urlDisimpan;
-        kemaskiniStatusCloudUI(true);
-        muatDataDariSheets();
-      } else {
-        kemaskiniStatusCloudUI(false);
-        renderKadSenarai();
-      }
+      muatDataCloud();
     });
 
     function binaButangDaerah() {
@@ -542,26 +466,24 @@
       });
     }
 
-    function kemaskiniStatusCloudUI(tersambung) {
+    async function muatDataCloud() {
       const dot = document.getElementById('cloudStatusDot');
       const text = document.getElementById('cloudStatusText');
-      const btnLabel = document.getElementById('btnLabelGAS');
+      const icon = document.getElementById('syncIcon');
 
-      if (tersambung && gasUrl) {
-        dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400";
-        text.textContent = "Google Sheets: Terselaras";
-        btnLabel.textContent = "Tetapan Sheets";
-      } else {
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("XXXXXXXXXXXX")) {
         dot.className = "w-2.5 h-2.5 rounded-full bg-amber-400";
-        text.textContent = "Mod Tempatan (Luar Talian)";
-        btnLabel.textContent = "Paut Google Sheets";
+        text.textContent = "Mod Tempatan (Sila masukkan URL Apps Script dalam kod)";
+        renderKadSenarai();
+        return;
       }
-    }
 
-    async function muatDataDariSheets() {
-      if (!gasUrl) return;
+      dot.className = "w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse";
+      text.textContent = "Menyambung ke Google Sheets...";
+      icon.classList.add('fa-spin');
+
       try {
-        const res = await fetch(`${gasUrl}?action=read`);
+        const res = await fetch(`${APPS_SCRIPT_URL}?action=read`);
         const json = await res.json();
         if (json.success && json.data && json.data.length > 0) {
           json.data.forEach(itemCloud => {
@@ -571,19 +493,23 @@
               padan.tarikhDipilih = itemCloud.tarikhDipilih;
             }
           });
+          dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400";
+          text.textContent = "Google Sheets: Tersambung & Segerak";
           tunjukToast("Data kehadiran diselaraskan dari Google Sheets!", "fa-cloud-arrow-down");
         }
       } catch (err) {
-        console.warn("Gagal membaca Google Sheets:", err);
+        dot.className = "w-2.5 h-2.5 rounded-full bg-amber-400";
+        text.textContent = "Mod Luar Talian (Gagal segerak)";
+        console.warn("Gagal menyambung:", err);
       } finally {
-        kemaskiniStatusCloudUI(true);
+        icon.classList.remove('fa-spin');
         tapisSenarai();
       }
     }
 
     function syncKeCloud(paramString) {
-      if (!gasUrl) return;
-      fetch(`${gasUrl}?${paramString}`)
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("XXXXXXXXXXXX")) return;
+      fetch(`${APPS_SCRIPT_URL}?${paramString}`)
         .then(r => r.json())
         .catch(err => console.warn("Ralat sync:", err));
     }
@@ -605,7 +531,7 @@
           (penapisStatus === 'selesai' && item.selesai);
 
         const padanDaerah = (penapisDaerah === 'Semua') || (item.daerah.toLowerCase() === penapisDaerah.toLowerCase());
-        const teks = `${item.nama} ${item.daerah} ${item.alamat} ${item.gelaran || ''}`.toLowerCase();
+        const teks = `${item.nama} ${item.daerah} ${item.carianPeta}`.toLowerCase();
         const padanCarian = teks.includes(query);
 
         return padanStatus && padanDaerah && padanCarian;
@@ -629,8 +555,6 @@
 
       items.forEach(item => {
         const isJumaat = item.hari.toLowerCase() === 'jumaat';
-
-        // Pautan Rasmi Google Places & Waze Search (Tepat 100% ke POI Masjid)
         const qEncoded = encodeURIComponent(item.carianPeta);
         const gmapsLink = `https://www.google.com/maps/search/?api=1&query=${qEncoded}`;
         const wazeLink = `https://waze.com/ul?q=${qEncoded}&navigate=yes`;
@@ -661,7 +585,7 @@
                     ? 'bg-brand-primary text-white border-brand-primary shadow-sm' 
                     : 'bg-white border-slate-300 text-transparent hover:border-brand-primary'
                 }"
-                title="${item.selesai ? 'Tanda sebagai belum hadir' : 'Tanda sebagai selesai hadir'}"
+                title="${item.selesai ? 'Tanda belum hadir' : 'Tanda selesai hadir'}"
               >
                 <i class="fa-solid fa-check text-xs"></i>
               </button>
@@ -675,7 +599,7 @@
               
               <p class="text-xs text-slate-600 flex items-start gap-1.5 mt-1">
                 <i class="fa-solid fa-location-dot text-slate-400 mt-0.5 shrink-0"></i>
-                <span class="font-medium">${item.alamat}</span>
+                <span class="font-medium">${item.carianPeta}</span>
               </p>
             </div>
 
@@ -723,7 +647,7 @@
 
             <div class="flex items-center gap-2 text-xs">
               <button 
-                onclick="tambahKeKalendar('${item.nama.replace(/'/g, "\\'")}', '${item.alamat.replace(/'/g, "\\'")}', '${item.tarikhDipilih}', '${item.hari}')" 
+                onclick="tambahKeKalendar('${item.nama.replace(/'/g, "\\'")}', '${item.carianPeta.replace(/'/g, "\\'")}', '${item.tarikhDipilih}', '${item.hari}')" 
                 class="flex-1 py-1.5 px-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-md font-semibold transition flex items-center justify-center gap-1.5 text-[11px]"
               >
                 <i class="fa-regular fa-calendar-plus text-brand-primary"></i>
@@ -754,9 +678,7 @@
       item.selesai = !item.selesai;
       tapisSenarai();
 
-      if (gasUrl) {
-        syncKeCloud(`action=toggle&id=${id}&status=${item.selesai}`);
-      }
+      syncKeCloud(`action=toggle&id=${id}&status=${item.selesai}`);
 
       tunjukToast(
         item.selesai ? `Alhamdulillah! Minggu ${item.minggu} (${item.nama}) ditanda SELESAI.` : `Minggu ${item.minggu} ditukar ke status belum hadir.`,
@@ -823,9 +745,7 @@
       const tarikhBaru = document.getElementById('pilihanTarikhSelect').value;
       masjidDipilihTukarTarikh.tarikhDipilih = tarikhBaru;
 
-      if (gasUrl) {
-        syncKeCloud(`action=updateDate&id=${masjidDipilihTukarTarikh.id}&date=${encodeURIComponent(tarikhBaru)}`);
-      }
+      syncKeCloud(`action=updateDate&id=${masjidDipilihTukarTarikh.id}&date=${encodeURIComponent(tarikhBaru)}`);
 
       tutupModalTarikh();
       tapisSenarai();
@@ -890,41 +810,11 @@ Waze: ${waze}
       t.select();
       try {
         document.execCommand('copy');
-        tunjukToast("Maklumat disalin! Sedia untuk ditampal di WhatsApp.", "fa-clipboard-check");
+        tunjukToast("Maklumat disalin untuk WhatsApp.", "fa-clipboard-check");
       } catch (e) {
-        tunjukToast("Gagal menyalin teks secara automatik.", "fa-circle-xmark");
+        tunjukToast("Gagal menyalin teks.", "fa-circle-xmark");
       }
       document.body.removeChild(t);
-    }
-
-    function bukaModalGAS() {
-      document.getElementById('gasUrlInput').value = gasUrl;
-      document.getElementById('modalGAS').classList.remove('hidden');
-    }
-
-    function tutupModalGAS() {
-      document.getElementById('modalGAS').classList.add('hidden');
-    }
-
-    function simpanPautanGAS() {
-      const val = document.getElementById('gasUrlInput').value.trim();
-      if (val) {
-        gasUrl = val;
-        if (window.localStorage) localStorage.setItem('kah_terengganu_gas_url', val);
-        kemaskiniStatusCloudUI(true);
-        tutupModalGAS();
-        muatDataDariSheets();
-      } else {
-        padamPautanGAS();
-      }
-    }
-
-    function padamPautanGAS() {
-      gasUrl = "";
-      if (window.localStorage) localStorage.removeItem('kah_terengganu_gas_url');
-      kemaskiniStatusCloudUI(false);
-      tutupModalGAS();
-      tunjukToast("Pautan Google Apps Script dipadam.", "fa-link-slash");
     }
 
     function padamCarian() {
