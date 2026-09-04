@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Checklist Kursus Asas Haji Terengganu 1448H/2027M</title>
+  <title>Checklist & Navigasi Kursus Asas Haji 1448H/2027M - Terengganu</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -31,11 +31,10 @@
               surface: '#07251C',
               accent: '#C59A27',
               accentHover: '#A8811A',
-              badgeBg: '#EAF3EF',
             }
           },
           boxShadow: {
-            'soft': '0 2px 8px -1px rgba(11, 59, 44, 0.06), 0 1px 4px -1px rgba(0, 0, 0, 0.04)',
+            'card': '0 2px 10px -2px rgba(11, 59, 44, 0.08), 0 1px 4px -1px rgba(0, 0, 0, 0.04)',
           }
         }
       }
@@ -52,16 +51,11 @@
       .print-card { break-inside: avoid; border: 1px solid #cbd5e1 !important; box-shadow: none !important; margin-bottom: 12px !important; }
       .print-show { display: block !important; }
     }
-    .fade-anim { animation: animEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes animEnter {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
-<body class="bg-[#F6F8F7] text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-brand-accent selection:text-white">
+<body class="bg-[#F8FAF9] text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-brand-accent selection:text-white">
 
-  <!-- Status Penyambungan Google Sheets -->
+  <!-- Bar Status Penyambungan Google Sheets -->
   <aside aria-label="Status Cloud" class="bg-brand-surface border-b border-emerald-950/80 text-xs py-2 px-3 sm:px-4 no-print sticky top-0 z-40">
     <div class="max-w-5xl mx-auto flex items-center justify-between gap-2">
       <div class="flex items-center gap-2 min-w-0">
@@ -93,7 +87,7 @@
             <span class="text-amber-300 font-serif">🕋</span>
           </h1>
           <p class="text-xs sm:text-sm text-emerald-100 font-semibold mt-1">
-            Jemaah Haji Malaysia 1448H / 2027M &bull; Pelan Jelajah 13 Minggu (1 Hari 1 Tempat)
+            Jemaah Haji Malaysia 1448H / 2027M &bull; Pelan 13 Minggu (1 Hari 1 Masjid)
           </p>
           <p class="text-xs text-amber-200 italic font-quran mt-0.5">
             "Bersedia, Berilmu, Berkeyakinan Menuju Baitullah"
@@ -108,7 +102,7 @@
         </div>
       </div>
 
-      <!-- Tracker Kemajuan -->
+      <!-- Tracker Kemajuan Kehadiran -->
       <div class="mt-5 bg-black/25 backdrop-blur-sm border border-white/10 rounded-xl p-4 shadow-inner">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-2">
           <div class="flex items-center gap-2.5">
@@ -151,7 +145,7 @@
   <main class="max-w-5xl mx-auto px-3 sm:px-4 py-5 flex-1 w-full space-y-4">
 
     <!-- Bar Kawalan: Carian & Penapis -->
-    <div class="bg-white rounded-xl p-3 sm:p-3.5 shadow-soft border border-slate-200 space-y-2.5 no-print">
+    <div class="bg-white rounded-xl p-3 sm:p-3.5 shadow-card border border-slate-200 space-y-2.5 no-print">
       <div class="flex flex-col sm:flex-row gap-2 items-center justify-between">
         <div class="relative w-full sm:flex-1">
           <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
@@ -201,7 +195,7 @@
 
   <!-- Modal Tukar Tarikh -->
   <div id="modalTarikh" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 no-print">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-5 space-y-3.5 shadow-2xl fade-anim">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 space-y-3.5 shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
         <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
           <i class="fa-regular fa-calendar-days text-brand-accent"></i>
@@ -214,7 +208,7 @@
 
       <div class="text-xs text-slate-700 space-y-2">
         <p>Pilih tarikh gantian bagi: <br><strong id="namaMasjidModal" class="text-slate-900 text-sm font-bold"></strong></p>
-        <label class="block font-semibold text-slate-800">Siri Tarikh Yang Sah:</label>
+        <label class="block font-semibold text-slate-800">Siri Tarikh Kursus Yang Sah:</label>
         <select id="pilihanTarikhSelect" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-900 focus:ring-2 focus:ring-brand-primary outline-none"></select>
       </div>
 
@@ -241,18 +235,18 @@
   <footer class="bg-slate-900 text-slate-400 text-xs py-5 mt-10 border-t border-slate-800 no-print">
     <div class="max-w-5xl mx-auto px-4 text-center space-y-1.5">
       <p class="text-slate-200 font-bold">
-        Checklist & Panduan Jelajah Kursus Asas Haji (KAH) Negeri Terengganu &bull; 1448H / 2027M
+        Checklist & Navigasi Kursus Asas Haji (KAH) Terengganu &bull; 1448H / 2027M
       </p>
       <div class="flex items-center justify-center gap-3 text-[11px] text-slate-400 pt-1">
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-amber-300 transition">Ke Atas</button>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-amber-300 transition">Kembali Ke Atas</button>
       </div>
     </div>
   </footer>
 
-  <!-- SCRIPT UTAMA -->
+  <!-- SCRIPT LOGIK & DATA RASMI -->
   <script>
     // =========================================================================
-    // 🔗 LETAKKAN URL WEB APP GOOGLE APPS SCRIPT ANDA DI SINI:
+    // 🔗 TAMPAL WEB APP URL DARI GOOGLE APPS SCRIPT ANDA DI SINI:
     // =========================================================================
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQrV4TiocIvLlx4BFHJ4GnCsYvheH4ONROVS-3trXT1dDf4R5eq1HauMhTJyGkPu2dQw/exec";
     // =========================================================================
@@ -269,16 +263,20 @@
       "05/12/2026", "12/12/2026", "19/12/2026"
     ];
 
+    // Data 13 Masjid dengan Nama Penuh & Pautan Tempat Rasmi
     const DATA_ASAL = [
       { 
         minggu: 1, 
         id: 1, 
         nama: "Masjid At-Taqwa Durian Burung", 
-        carianPeta: "Masjid At-Taqwa Durian Burung, Kuala Terengganu",
         daerah: "Kuala Terengganu", 
         hari: "Jumaat", 
         masa: "8.00 pagi – 12.00 tgh", 
         tarikhDipilih: "25/09/2026", 
+        lokasiPenuh: "Masjid At-Takwa, Durian Burung, 20050 Kuala Terengganu",
+        carianPeta: "Masjid At-Takwa, Durian Burung, Kuala Terengganu",
+        gmapsUrl: "https://maps.google.com/?cid=11503669529533817507",
+        wazeUrl: "https://waze.com/ul?q=Masjid+At-Takwa+Durian+Burung+Kuala+Terengganu&navigate=yes",
         selesai: false, 
         catatan: "Siri 1: Falsafah Haji, Niat & Asas Ihram" 
       },
@@ -287,11 +285,14 @@
         id: 3, 
         nama: "Masjid Tengku Tengah Zaharah", 
         gelaran: "Masjid Terapung Kuala Ibai", 
-        carianPeta: "Masjid Tengku Tengah Zaharah, Kuala Ibai, Kuala Terengganu",
         daerah: "Kuala Terengganu", 
         hari: "Sabtu", 
         masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "03/10/2026", 
+        lokasiPenuh: "Masjid Tengku Tengah Zaharah, Kuala Ibai, 20400 Kuala Terengganu",
+        carianPeta: "Masjid Tengku Tengah Zaharah (Masjid Terapung), Kuala Ibai, Kuala Terengganu",
+        gmapsUrl: "https://maps.google.com/?cid=2971137667866400166",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Tengku+Tengah+Zaharah+Kuala+Ibai&navigate=yes",
         selesai: false, 
         catatan: "Siri 2: Syarat, Rukun & Wajib Haji" 
       },
@@ -299,11 +300,14 @@
         minggu: 3, 
         id: 2, 
         nama: "Masjid Wakaf Tembesu", 
-        carianPeta: "Masjid Wakaf Tembesu, Kuala Terengganu",
         daerah: "Kuala Terengganu", 
         hari: "Jumaat", 
         masa: "8.00 pagi – 12.00 tgh", 
         tarikhDipilih: "09/10/2026", 
+        lokasiPenuh: "Masjid Wakaf Tembesu, Jalan Gong Badak, 21300 Kuala Terengganu",
+        carianPeta: "Masjid Wakaf Tembesu, Jalan Gong Badak, Kuala Terengganu",
+        gmapsUrl: "https://maps.google.com/?cid=13337746422889260741",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Wakaf+Tembesu+Kuala+Terengganu&navigate=yes",
         selesai: false, 
         catatan: "Siri 3: Larangan Semasa Ihram & Dam" 
       },
@@ -311,11 +315,14 @@
         minggu: 4, 
         id: 4, 
         nama: "Masjid Padang Nenas", 
-        carianPeta: "Masjid Padang Nenas, Kuala Nerus, Terengganu",
         daerah: "Kuala Nerus", 
         hari: "Sabtu", 
         masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "17/10/2026", 
+        lokasiPenuh: "Masjid Padang Nenas, Kampung Padang Nenas, 21030 Kuala Nerus",
+        carianPeta: "Masjid Padang Nenas, Kampung Padang Nenas, Kuala Nerus",
+        gmapsUrl: "https://maps.google.com/?cid=7969624223369570891",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Padang+Nenas+Kuala+Nerus&navigate=yes",
         selesai: false, 
         catatan: "Siri 4: Praktikal Ibadat Tawaf & Solat Sunat Tawaf" 
       },
@@ -323,11 +330,14 @@
         minggu: 5, 
         id: 8, 
         nama: "Masjid Padang Mengkuang", 
-        carianPeta: "Masjid Padang Mengkuang, Marang, Terengganu",
         daerah: "Marang", 
         hari: "Sabtu", 
         masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "24/10/2026", 
+        lokasiPenuh: "Masjid Padang Mengkuang, KM 16 Bukit Payung, 21400 Marang",
+        carianPeta: "Masjid Padang Mengkuang, Bukit Payung, Marang",
+        gmapsUrl: "https://maps.google.com/?cid=16759662360271584522",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Padang+Mengkuang+Marang&navigate=yes",
         selesai: false, 
         catatan: "Siri 5: Ibadah Sa'ie & Bercukur (Tahallul)" 
       },
@@ -335,11 +345,14 @@
         minggu: 6, 
         id: 6, 
         nama: "Masjid Kg. Butut", 
-        carianPeta: "Masjid Kg Butut, Kuala Berang, Terengganu",
         daerah: "Kuala Berang", 
         hari: "Sabtu", 
         masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "31/10/2026", 
+        lokasiPenuh: "Masjid Kampung Butut, 21700 Kuala Berang, Hulu Terengganu",
+        carianPeta: "Masjid Kampung Butut, Kuala Berang, Terengganu",
+        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=Masjid+Kampung+Butut+Kuala+Berang",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Kampung+Butut+Kuala+Berang&navigate=yes",
         selesai: false, 
         catatan: "Siri 6: Penghayatan Wukuf di Padang Arafah" 
       },
@@ -348,11 +361,14 @@
         id: 7, 
         nama: "Masjid Putera Jaya", 
         gelaran: "Kg. Pak Kancil", 
-        carianPeta: "Masjid Putera Jaya, Kampung Pak Kancil, Setiu, Terengganu",
         daerah: "Setiu", 
         hari: "Sabtu", 
         masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "07/11/2026", 
+        lokasiPenuh: "Masjid Putera Jaya (Masjid Kariah), Kampung Pak Kancil, 22100 Permaisuri, Setiu",
+        carianPeta: "Masjid Putera Jaya, Kampung Pak Kancil, Permaisuri, Setiu",
+        gmapsUrl: "https://maps.google.com/?cid=10395761525953301522",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Putera+Jaya+Kampung+Pak+Kancil+Setiu&navigate=yes",
         selesai: false, 
         catatan: "Siri 7: Mabit di Muzdalifah & Mina" 
       },
@@ -361,11 +377,14 @@
         id: 9, 
         nama: "Masjid Ulul Albab (Lulu Albab)", 
         gelaran: "Masjid Kayu Seberang Jerteh", 
-        carianPeta: "Masjid Ulul Albab Seberang Jerteh, Besut, Terengganu",
         daerah: "Besut", 
         hari: "Jumaat", 
         masa: "8.00 pagi – 12.00 tgh", 
         tarikhDipilih: "13/11/2026", 
+        lokasiPenuh: "Masjid Ulul Albab (Masjid Kayu), Kampung Seberang Jertih, 22000 Jerteh, Besut",
+        carianPeta: "Masjid Ulul Albab Seberang Jerteh, Besut",
+        gmapsUrl: "https://maps.google.com/?cid=13504445989286249215",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Ulul+Albab+Seberang+Jerteh+Besut&navigate=yes",
         selesai: false, 
         catatan: "Siri 8: Tertib & Kaifiat Melontar Jamrah" 
       },
@@ -373,11 +392,14 @@
         minggu: 9, 
         id: 10, 
         nama: "Masjid Nasiruddin Shah", 
-        carianPeta: "Masjid Nasiruddin Shah, Kampung Raja, Besut, Terengganu",
         daerah: "Besut", 
         hari: "Sabtu", 
         masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "21/11/2026", 
+        lokasiPenuh: "Masjid Nasiruddin Shah (Masjid Utama), Pekan Kampung Raja, 22200 Besut",
+        carianPeta: "Masjid Nasiruddin Shah, Pekan Kampung Raja, Besut",
+        gmapsUrl: "https://maps.google.com/?cid=12316967182039580276",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Nasiruddin+Shah+Kampung+Raja+Besut&navigate=yes",
         selesai: false, 
         catatan: "Siri 9: Jenis Pelaksanaan Haji (Tamattu', Ifrad, Qiran)" 
       },
@@ -385,11 +407,14 @@
         minggu: 10, 
         id: 5, 
         nama: "Masjid Balai Besar", 
-        carianPeta: "Masjid Balai Besar, Dungun, Terengganu",
         daerah: "Dungun", 
         hari: "Sabtu", 
         masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "28/11/2026", 
+        lokasiPenuh: "Masjid Balai Besar, Jalan Gong Pasir - Balai Besar, 23000 Kuala Dungun",
+        carianPeta: "Masjid Balai Besar, Jalan Gong Pasir, Kuala Dungun",
+        gmapsUrl: "https://maps.google.com/?cid=18276482090745666868",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Balai+Besar+Dungun&navigate=yes",
         selesai: false, 
         catatan: "Siri 10: Jenis-jenis Dam & Fidyah" 
       },
@@ -398,11 +423,14 @@
         id: 13, 
         nama: "Masjid Tg. Mizan Zainal Abidin", 
         gelaran: "Bandar Baru Kerteh", 
-        carianPeta: "Masjid Tengku Mizan Zainal Abidin Kerteh, Kemaman, Terengganu",
         daerah: "Kerteh", 
         hari: "Sabtu", 
         masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "05/12/2026", 
+        lokasiPenuh: "Masjid Tengku Mizan Zainal Abidin, Bandar Baru Kerteh, 24300 Kerteh, Kemaman",
+        carianPeta: "Masjid Tengku Mizan Zainal Abidin, Bandar Baru Kerteh",
+        gmapsUrl: "https://maps.google.com/?cid=7786217596767497784",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Tengku+Mizan+Zainal+Abidin+Kerteh&navigate=yes",
         selesai: false, 
         catatan: "Siri 11: Panduan Kesihatan & Kecergasan Jemaah" 
       },
@@ -410,11 +438,14 @@
         minggu: 12, 
         id: 11, 
         nama: "Masjid Jamek Binjai", 
-        carianPeta: "Masjid Jamek Binjai, Kemaman, Terengganu",
         daerah: "Kemaman", 
         hari: "Jumaat", 
         masa: "8.00 pagi – 12.00 tgh", 
         tarikhDipilih: "11/12/2026", 
+        lokasiPenuh: "Masjid Mukim Binjai / Masjid Jamek Binjai, Kampung Batu 5, 24000 Chukai, Kemaman",
+        carianPeta: "Masjid Mukim Binjai, Kampung Batu 5, Chukai, Kemaman",
+        gmapsUrl: "https://maps.google.com/?cid=5766538933286069146",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Mukim+Binjai+Kemaman&navigate=yes",
         selesai: false, 
         catatan: "Siri 12: Kelebihan & Adab Ziarah Madinah Munawwarah" 
       },
@@ -422,11 +453,14 @@
         minggu: 13, 
         id: 12, 
         nama: "Masjid Batu 2 1/2 Mak Chili", 
-        carianPeta: "Masjid Mak Chili, Chukai, Kemaman, Terengganu",
         daerah: "Kemaman", 
         hari: "Sabtu", 
         masa: "8.30 pagi – 12.30 tgh", 
         tarikhDipilih: "19/12/2026", 
+        lokasiPenuh: "Masjid Kampung Batu 2 1/2 Mak Chili, Jalan Air Puteh, 24000 Chukai, Kemaman",
+        carianPeta: "Masjid Kampung Batu 2 1/2 Mak Chili, Jalan Air Puteh, Kemaman",
+        gmapsUrl: "https://maps.google.com/?cid=7556641092294657807",
+        wazeUrl: "https://waze.com/ul?q=Masjid+Kampung+Batu+2+1/2+Mak+Chili+Kemaman&navigate=yes",
         selesai: false, 
         catatan: "Siri 13: Tawaf Wada', Doa Akhir & Penutup" 
       }
@@ -473,7 +507,7 @@
 
       if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("XXXXXXXXXXXX")) {
         dot.className = "w-2.5 h-2.5 rounded-full bg-amber-400";
-        text.textContent = "Mod Tempatan (Sila masukkan URL Apps Script dalam kod)";
+        text.textContent = "Mod Tempatan (Sila masukkan URL Apps Script dalam kod index.html)";
         renderKadSenarai();
         return;
       }
@@ -499,8 +533,8 @@
         }
       } catch (err) {
         dot.className = "w-2.5 h-2.5 rounded-full bg-amber-400";
-        text.textContent = "Mod Luar Talian (Gagal segerak)";
-        console.warn("Gagal menyambung:", err);
+        text.textContent = "Mod Luar Talian (Gagal segerak dengan Sheets)";
+        console.warn("Ralat rangkaian:", err);
       } finally {
         icon.classList.remove('fa-spin');
         tapisSenarai();
@@ -531,7 +565,7 @@
           (penapisStatus === 'selesai' && item.selesai);
 
         const padanDaerah = (penapisDaerah === 'Semua') || (item.daerah.toLowerCase() === penapisDaerah.toLowerCase());
-        const teks = `${item.nama} ${item.daerah} ${item.carianPeta}`.toLowerCase();
+        const teks = `${item.nama} ${item.daerah} ${item.lokasiPenuh}`.toLowerCase();
         const padanCarian = teks.includes(query);
 
         return padanStatus && padanDaerah && padanCarian;
@@ -555,12 +589,9 @@
 
       items.forEach(item => {
         const isJumaat = item.hari.toLowerCase() === 'jumaat';
-        const qEncoded = encodeURIComponent(item.carianPeta);
-        const gmapsLink = `https://www.google.com/maps/search/?api=1&query=${qEncoded}`;
-        const wazeLink = `https://waze.com/ul?q=${qEncoded}&navigate=yes`;
 
         const kad = document.createElement('div');
-        kad.className = `print-card bg-white rounded-xl p-4 sm:p-5 border transition-all duration-200 shadow-soft flex flex-col justify-between space-y-3.5 fade-anim relative ${
+        kad.className = `print-card bg-white rounded-xl p-4 sm:p-5 border transition-all duration-200 shadow-card flex flex-col justify-between space-y-3.5 relative ${
           item.selesai ? 'border-brand-primary/40 bg-[#F4F9F6]' : 'border-slate-200'
         }`;
 
@@ -599,7 +630,7 @@
               
               <p class="text-xs text-slate-600 flex items-start gap-1.5 mt-1">
                 <i class="fa-solid fa-location-dot text-slate-400 mt-0.5 shrink-0"></i>
-                <span class="font-medium">${item.carianPeta}</span>
+                <span class="font-medium">${item.lokasiPenuh}</span>
               </p>
             </div>
 
@@ -625,29 +656,30 @@
             </div>
           </div>
 
+          <!-- Butang Tindakan: Navigasi, Kalendar & Kongsi -->
           <div class="pt-1 pl-1.5 space-y-2 no-print">
             <div class="grid grid-cols-2 gap-2">
               <a 
-                href="${gmapsLink}" 
+                href="${item.gmapsUrl}" 
                 target="_blank" 
                 class="flex items-center justify-center gap-1.5 bg-[#1e40af] hover:bg-[#1d4ed8] active:scale-95 text-white font-bold py-2.5 px-3 rounded-lg text-xs transition shadow-sm"
               >
                 <i class="fa-brands fa-google text-xs"></i>
-                <span>Buka Google Maps</span>
+                <span>Google Maps</span>
               </a>
               <a 
-                href="${wazeLink}" 
+                href="${item.wazeUrl}" 
                 target="_blank" 
                 class="flex items-center justify-center gap-1.5 bg-[#0369a1] hover:bg-[#0284c7] active:scale-95 text-white font-bold py-2.5 px-3 rounded-lg text-xs transition shadow-sm"
               >
                 <i class="fa-brands fa-waze text-xs"></i>
-                <span>Buka Waze</span>
+                <span>Waze</span>
               </a>
             </div>
 
             <div class="flex items-center gap-2 text-xs">
               <button 
-                onclick="tambahKeKalendar('${item.nama.replace(/'/g, "\\'")}', '${item.carianPeta.replace(/'/g, "\\'")}', '${item.tarikhDipilih}', '${item.hari}')" 
+                onclick="tambahKeKalendar('${item.nama.replace(/'/g, "\\'")}', '${item.lokasiPenuh.replace(/'/g, "\\'")}', '${item.tarikhDipilih}', '${item.hari}')" 
                 class="flex-1 py-1.5 px-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-md font-semibold transition flex items-center justify-center gap-1.5 text-[11px]"
               >
                 <i class="fa-regular fa-calendar-plus text-brand-primary"></i>
@@ -657,7 +689,7 @@
               <button 
                 onclick="kongsiMaklumatWhatsApp(${item.id})" 
                 class="py-1.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-md font-semibold transition text-[11px]"
-                title="Kongsi maklumat ke WhatsApp"
+                title="Kongsi ke WhatsApp"
               >
                 <i class="fa-solid fa-share-nodes text-brand-primary"></i>
               </button>
@@ -778,10 +810,6 @@
       const item = senaraiMasjid.find(m => m.id === id);
       if (!item) return;
 
-      const q = encodeURIComponent(item.carianPeta);
-      const gmaps = `https://www.google.com/maps/search/?api=1&query=${q}`;
-      const waze = `https://waze.com/ul?q=${q}&navigate=yes`;
-
       const teks = 
 `*JADUAL KURSUS ASAS HAJI 1448H/2027M*
 🕌 *${item.nama}*
@@ -789,11 +817,11 @@
 🗓️ Tarikh: ${item.tarikhDipilih} (${item.hari})
 ⏰ Waktu: ${item.masa}
 📖 Topik: ${item.catatan}
-📌 Lokasi: ${item.carianPeta}
+📌 Lokasi: ${item.lokasiPenuh}
 
 🚗 *Panduan Arah Rasmi:*
-Google Maps: ${gmaps}
-Waze: ${waze}
+Google Maps: ${item.gmapsUrl}
+Waze: ${item.wazeUrl}
 
 #MenujuHajiMabrur #JHM2027`;
 
