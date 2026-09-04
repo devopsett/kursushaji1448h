@@ -50,11 +50,11 @@
     <div class="max-w-4xl mx-auto flex items-center justify-between gap-2">
       <div class="flex items-center gap-2">
         <span id="syncDot" class="w-2 h-2 rounded-full bg-slate-400"></span>
-        <span id="syncLabel" class="text-[11px] font-medium">Mod Luar Talian (Tempatan)</span>
+        <span id="syncLabel" class="text-[11px] font-medium">Memeriksa sambungan...</span>
       </div>
       <button onclick="muatDataCloud()" class="text-amber-300 hover:text-white text-[11px] font-semibold flex items-center gap-1">
         <i class="fa-solid fa-arrows-rotate" id="syncIcon"></i>
-        <span>Segerak Cloud</span>
+        <span>Segerak</span>
       </button>
     </div>
   </aside>
@@ -134,25 +134,47 @@
 
   </main>
 
-  <!-- Modal Tukar Tarikh -->
+  <!-- Modal Tukar Tarikh (Tersuai & Siri) -->
   <div id="modalTarikh" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 no-print">
-    <div class="bg-white rounded-xl max-w-sm w-full p-4 space-y-3 shadow-xl">
+    <div class="bg-white rounded-xl max-w-sm w-full p-4 space-y-3.5 shadow-xl">
       <div class="flex items-center justify-between border-b pb-2">
         <h3 class="font-bold text-slate-800 text-sm">Tukar Tarikh Kehadiran</h3>
         <button onclick="tutupModalTarikh()" class="text-slate-400 hover:text-slate-600 text-xs">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      <div class="text-xs space-y-2">
-        <p>Masjid: <strong id="namaMasjidModal" class="text-slate-900"></strong></p>
-        <label class="block font-semibold text-slate-700">Pilih Tarikh Siri:</label>
-        <select id="selectTarikh" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-xs font-medium outline-none"></select>
+
+      <div class="text-xs space-y-3">
+        <p class="text-slate-600">Masjid: <strong id="namaMasjidModal" class="text-slate-900 block text-sm mt-0.5"></strong></p>
+
+        <!-- Bahagian 1: Pilih Tarikh Bebas (Custom Date Picker) -->
+        <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1.5">
+          <label class="block font-bold text-slate-700">1. Pilih Mana-mana Tarikh (Tersuai):</label>
+          <input 
+            type="date" 
+            id="inputCustomDate" 
+            onchange="onCustomDateSelected()"
+            class="w-full p-2 bg-white border border-slate-300 rounded-md text-xs font-semibold text-slate-800 outline-none focus:ring-2 focus:ring-brand-green"
+          >
+          <p id="previewHariCustom" class="text-[11px] text-emerald-700 font-medium"></p>
+        </div>
+
+        <!-- Bahagian 2: Pilihan Dari Siri Asal -->
+        <div class="space-y-1">
+          <label class="block font-semibold text-slate-600">Atau pilih siri jadual asal:</label>
+          <select 
+            id="selectTarikh" 
+            onchange="onPresetSelected()"
+            class="w-full p-2 bg-slate-50 border border-slate-300 rounded-md text-xs font-medium outline-none"
+          ></select>
+        </div>
       </div>
-      <div class="flex items-center gap-2 pt-1">
-        <button onclick="tutupModalTarikh()" class="flex-1 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold">
+
+      <div class="flex items-center gap-2 pt-1 border-t border-slate-100">
+        <button onclick="tutupModalTarikh()" class="flex-1 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition">
           Batal
         </button>
-        <button onclick="simpanTarikh()" class="flex-1 py-1.5 bg-brand-green hover:bg-emerald-900 text-white rounded-lg text-xs font-semibold">
+        <button onclick="simpanTarikh()" class="flex-1 py-1.5 bg-brand-green hover:bg-emerald-900 text-white rounded-lg text-xs font-semibold transition">
           Simpan
         </button>
       </div>
@@ -175,10 +197,12 @@
   <!-- SCRIPT UTAMA -->
   <script>
     // =========================================================================
-    // 🔗 URL WEB APP GOOGLE APPS SCRIPT:
+    // 🔗 URL WEB APP GOOGLE APPS SCRIPT ANDA:
     // =========================================================================
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQrV4TiocIvLlx4BFHJ4GnCsYvheH4ONROVS-3trXT1dDf4R5eq1HauMhTJyGkPu2dQw/exec";
     // =========================================================================
+
+    const NAMA_HARI = ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"];
 
     const JADUAL_JUMAAT = [
       "25/09/2026", "02/10/2026", "09/10/2026", "16/10/2026", "23/10/2026",
@@ -192,7 +216,6 @@
       "05/12/2026", "12/12/2026", "19/12/2026"
     ];
 
-    // Data Master 13 Masjid (Bahagian Catatan Dibuang)
     const DATA_MASTER = [
       {
         minggu: 1,
@@ -356,7 +379,7 @@
     let tabSemasa = 'semua';
     let masjidTukar = null;
 
-    // Bersihkan format tarikh ISO
+    // Bersihkan format tarikh dari sebarang format ISO
     function formatTarikhKemas(tarikhMentah) {
       if (!tarikhMentah) return "";
       const str = String(tarikhMentah).trim();
@@ -375,6 +398,20 @@
       return str;
     }
 
+    // Tukar format DD/MM/YYYY ke YYYY-MM-DD untuk input date HTML5
+    function dmyToYmd(dmyStr) {
+      if (!dmyStr || !dmyStr.includes("/")) return "";
+      const p = dmyStr.split("/");
+      return `${p[2]}-${p[1].padStart(2, '0')}-${p[0].padStart(2, '0')}`;
+    }
+
+    // Tukar format YYYY-MM-DD ke DD/MM/YYYY
+    function ymdToDmy(ymdStr) {
+      if (!ymdStr || !ymdStr.includes("-")) return "";
+      const p = ymdStr.split("-");
+      return `${p[2]}/${p[1]}/${p[0]}`;
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       renderSenarai();
       if (APPS_SCRIPT_URL && !APPS_SCRIPT_URL.includes("XXXXXXXXXXXX")) {
@@ -387,7 +424,11 @@
       const label = document.getElementById('syncLabel');
       const icon = document.getElementById('syncIcon');
 
-      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("XXXXXXXXXXXX")) return;
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("XXXXXXXXXXXX")) {
+        dot.className = "w-2 h-2 rounded-full bg-slate-400";
+        label.textContent = "Mod Tempatan (Luar Talian)";
+        return;
+      }
 
       dot.className = "w-2 h-2 rounded-full bg-blue-400 animate-ping";
       label.textContent = "Menyegerak data...";
@@ -404,11 +445,14 @@
               if (itemCloud.tarikhDipilih) {
                 padan.tarikhDipilih = formatTarikhKemas(itemCloud.tarikhDipilih);
               }
+              if (itemCloud.hari) {
+                padan.hari = itemCloud.hari;
+              }
             }
           });
           dot.className = "w-2 h-2 rounded-full bg-emerald-400";
           label.textContent = "Google Sheets: Tersambung";
-          tunjukToast("Data diselaraskan!");
+          tunjukToast("Data kehadiran diselaraskan!");
         }
       } catch (err) {
         dot.className = "w-2 h-2 rounded-full bg-amber-400";
@@ -506,11 +550,11 @@
           </div>
 
           <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-100 no-print">
-            <a href="${item.gmaps}" target="_blank" class="flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition">
+            <a href="${item.gmaps}" target="_blank" class="flex items-center justify-center gap-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1.5 px-3 rounded-lg text-xs transition">
               <i class="fa-brands fa-google"></i>
               <span>Google Maps</span>
             </a>
-            <a href="${item.waze}" target="_blank" class="flex items-center justify-center gap-1.5 bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-3 rounded-lg text-xs transition">
+            <a href="${item.waze}" target="_blank" class="flex items-center justify-center gap-1 bg-sky-500 hover:bg-sky-600 text-white font-bold py-1.5 px-3 rounded-lg text-xs transition">
               <i class="fa-brands fa-waze"></i>
               <span>Waze</span>
             </a>
@@ -546,17 +590,26 @@
       document.getElementById('cntSelesai').textContent = siap;
     }
 
+    // Modal Tukar Tarikh
     function bukaModalTarikh(id) {
       masjidTukar = senaraiMasjid.find(m => m.id === id);
       if (!masjidTukar) return;
 
       document.getElementById('namaMasjidModal').textContent = masjidTukar.nama;
+      
+      const tarikhSemasaBersih = formatTarikhKemas(masjidTukar.tarikhDipilih);
+      const customInput = document.getElementById('inputCustomDate');
+      const ymdValue = dmyToYmd(tarikhSemasaBersih);
+      customInput.value = ymdValue;
+      
+      // Papar hari tarikh semasa
+      kemaskiniPreviewHari(ymdValue);
+
+      // Isi pilihan siri pratetap
       const select = document.getElementById('selectTarikh');
-      select.innerHTML = '';
+      select.innerHTML = '<option value="">-- Pilih Siri Asal --</option>';
 
       const jadual = masjidTukar.hari.toLowerCase() === 'jumaat' ? JADUAL_JUMAAT : JADUAL_SABTU;
-      const tarikhSemasaBersih = formatTarikhKemas(masjidTukar.tarikhDipilih);
-
       jadual.forEach((t, i) => {
         const opt = document.createElement('option');
         opt.value = t;
@@ -568,6 +621,35 @@
       document.getElementById('modalTarikh').classList.remove('hidden');
     }
 
+    function onCustomDateSelected() {
+      const val = document.getElementById('inputCustomDate').value;
+      if (val) {
+        kemaskiniPreviewHari(val);
+        document.getElementById('selectTarikh').value = "";
+      }
+    }
+
+    function onPresetSelected() {
+      const val = document.getElementById('selectTarikh').value;
+      if (val) {
+        const ymd = dmyToYmd(val);
+        document.getElementById('inputCustomDate').value = ymd;
+        kemaskiniPreviewHari(ymd);
+      }
+    }
+
+    function kemaskiniPreviewHari(ymdStr) {
+      const preview = document.getElementById('previewHariCustom');
+      if (!ymdStr) {
+        preview.textContent = "";
+        return;
+      }
+      const parts = ymdStr.split("-");
+      const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      const namaHari = NAMA_HARI[d.getDay()];
+      preview.textContent = `Hari: ${namaHari}`;
+    }
+
     function tutupModalTarikh() {
       document.getElementById('modalTarikh').classList.add('hidden');
       masjidTukar = null;
@@ -575,12 +657,26 @@
 
     function simpanTarikh() {
       if (!masjidTukar) return;
-      const baru = document.getElementById('selectTarikh').value;
-      masjidTukar.tarikhDipilih = baru;
-      hantarCloud(`action=updateDate&id=${masjidTukar.id}&date=${encodeURIComponent(baru)}`);
+
+      const ymdVal = document.getElementById('inputCustomDate').value;
+      if (!ymdVal) {
+        tunjukToast("Sila pilih tarikh terlebih dahulu!");
+        return;
+      }
+
+      const dmyBaru = ymdToDmy(ymdVal);
+      const parts = ymdVal.split("-");
+      const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      const hariBaru = NAMA_HARI[d.getDay()];
+
+      masjidTukar.tarikhDipilih = dmyBaru;
+      masjidTukar.hari = hariBaru;
+
+      hantarCloud(`action=updateDate&id=${masjidTukar.id}&date=${encodeURIComponent(dmyBaru)}&day=${encodeURIComponent(hariBaru)}`);
+      
       tutupModalTarikh();
       tapisSenarai();
-      tunjukToast(`Tarikh ditukar: ${baru}`);
+      tunjukToast(`Tarikh ditukar: ${dmyBaru} (${hariBaru})`);
     }
 
     function tunjukToast(mesej) {
